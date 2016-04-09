@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using Microsoft.Owin.Hosting;
 
 namespace Vault
 {
@@ -11,10 +10,16 @@ namespace Vault
         public static void Main(string[] args)
         {
             using (var context = new SystemTrayContext())
-            using (WebApp.Start<Startup>("http://+:1234"))
             {
+                var vault = new Vault();
+                vault.Start();
+
                 Application.Run(context);
+
+                vault.Stop();
             }
         }
     }   
+
+
 }

@@ -1,30 +1,25 @@
-﻿using System;
-using System.ServiceProcess;
-using Microsoft.Owin.Hosting;
+﻿using System.ServiceProcess;
 
 namespace Vault
 {
     partial class VaultService : ServiceBase
     {
-        private IDisposable _webApp;
+        private readonly Vault _vault;
 
         public VaultService()
         {
             InitializeComponent();
+            _vault = new Vault();
         }
 
         protected override void OnStart(string[] args)
         {
-            _webApp = WebApp.Start<Startup>("http://+:1234");
+            _vault.Start();
         }
 
         protected override void OnStop()
         {
-            if (_webApp != null)
-            {
-                _webApp.Dispose();
-                _webApp = null;
-            }
+            _vault.Stop();
         }
     }
 }

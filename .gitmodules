@@ -1,0 +1,4 @@
+[submodule "Vault.Core"]
+	path = Vault.Core
+	url = https://github.com/StevenThuriot/Vault.Core.git
+	branch = master
