@@ -9,6 +9,7 @@ namespace Vault
     public class SystemTrayContext : ApplicationContext
     {
         readonly NotifyIcon _notifyIcon;
+        readonly Vault _vault;
 
         public SystemTrayContext()
         {
@@ -29,6 +30,10 @@ namespace Vault
             _notifyIcon.ContextMenuStrip.Items.Add(new ToolStripSeparator());
 
             CreateMenuItem("&Exit", (sender, args) => Application.Exit());
+
+
+            _vault = new Vault();
+            _vault.Start();
         }
 
         void CreateMenuItem(string text, EventHandler toolStripMenuItemOnClick)
@@ -54,6 +59,8 @@ namespace Vault
             base.Dispose(disposing);
             if (disposing)
             {
+                _vault.Stop();
+
                 var notifyIcon = _notifyIcon;
 
                 notifyIcon.Visible = false;

@@ -11,12 +11,7 @@ namespace Vault
         {
             using (var context = new SystemTrayContext())
             {
-                var vault = new Vault();
-                vault.Start();
-
                 Application.Run(context);
-
-                vault.Stop();
             }
         }
     }   

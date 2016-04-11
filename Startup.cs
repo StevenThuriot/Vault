@@ -12,9 +12,9 @@ namespace Vault
         {
             var routes = new HttpRouteCollection();
 
-            routes.MapHttpRoute("DefaultApiWithId", "Api/{controller}/{id}", new { id = RouteParameter.Optional }, new { id = @"\d+" });
-            routes.MapHttpRoute("DefaultApiWithAction", "Api/{controller}/{domain}");
-            routes.MapHttpRoute("DefaultApiGet", "Api/{controller}", new { action = "Get" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
+            routes.MapHttpRoute("DefaultApiWithId", "api/{controller}/{id}", new { id = RouteParameter.Optional }, new { id = @"\d+" });
+            routes.MapHttpRoute("DefaultApiWithAction", "api/{controller}/{domain}");
+            routes.MapHttpRoute("DefaultApiGet", "api/{controller}", new { action = "Get" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
 
             app.UseWebApi(new HttpConfiguration(routes));
 
