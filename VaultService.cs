@@ -4,22 +4,22 @@ namespace Vault
 {
     partial class VaultService : ServiceBase
     {
-        private readonly Vault _vault;
+        private readonly VaultApi _vaultApi;
 
         public VaultService()
         {
             InitializeComponent();
-            _vault = new Vault();
+            _vaultApi = new VaultApi();
         }
 
         protected override void OnStart(string[] args)
         {
-            _vault.Start();
+            _vaultApi.Start();
         }
 
         protected override void OnStop()
         {
-            _vault.Stop();
+            _vaultApi.Stop();
         }
     }
 }

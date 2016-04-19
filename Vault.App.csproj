@@ -82,7 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="SystemTrayContext.cs" />
-    <Compile Include="Vault.cs" />
+    <Compile Include="VaultApi.cs" />
     <Compile Include="VaultService.cs">
       <SubType>Component</SubType>
     </Compile>

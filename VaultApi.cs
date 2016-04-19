@@ -3,7 +3,7 @@ using Microsoft.Owin.Hosting;
 
 namespace Vault
 {
-    public class Vault
+    public class VaultApi
     {
         private IDisposable _webApp;
         public void Start()

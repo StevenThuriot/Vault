@@ -9,7 +9,7 @@ namespace Vault
     public class SystemTrayContext : ApplicationContext
     {
         readonly NotifyIcon _notifyIcon;
-        readonly Vault _vault;
+        readonly VaultApi _vaultApi;
 
         public SystemTrayContext()
         {
@@ -32,8 +32,8 @@ namespace Vault
             CreateMenuItem("&Exit", (sender, args) => Application.Exit());
 
 
-            _vault = new Vault();
-            _vault.Start();
+            _vaultApi = new VaultApi();
+            _vaultApi.Start();
         }
 
         void CreateMenuItem(string text, EventHandler toolStripMenuItemOnClick)
@@ -59,7 +59,7 @@ namespace Vault
             base.Dispose(disposing);
             if (disposing)
             {
-                _vault.Stop();
+                _vaultApi.Stop();
 
                 var notifyIcon = _notifyIcon;
 
