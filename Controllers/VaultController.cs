@@ -1,19 +1,21 @@
-﻿using System.Web.Http;
+﻿using System.Security;
+using System.Text;
+using System.Web.Http;
+using Vault.Core;
 
 namespace Vault.Controllers
 {
     //TODO: Remove test data
     public class VaultController : ApiController
     {
+        //TODO: just for testing things out, replace with injected container and real auth
+        readonly byte[] pw = Encoding.Unicode.GetBytes("This is a password!");
+        readonly IContainer<SecureString> _container = ContainerFactory.FromFile("vault.enc");
+
         // GET api/vault 
         public IHttpActionResult Get()
         {
-            var content = new[]
-            {
-                new { Id = 1, Url = "http://www.google.com", Paswd = "value1"},
-                new { Id = 2, Url = "http://www.google.be", Paswd = "value2"}
-            };
-
+            var content = _container.ResolveKeys(pw);
             return Json(content);
         }
 
