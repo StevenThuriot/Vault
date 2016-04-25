@@ -14,37 +14,63 @@ namespace Vault.Controllers
 
         // GET api/vault 
         public IHttpActionResult Get()
-        {
-            var content = _container.ResolveKeys(pw);
-            return Json(content);
+        {   try
+            {
+                var content = _container.ResolveKeys(pw);
+                return Json(content);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
-
-        // GET api/vault/5 
-        public IHttpActionResult Get(int id)
-        {
-            return Json(new { Id = id, Url = "http://www.google.com", Paswd = "value1" });
-        }
-
-
+        
         // GET api/vault/google.com
-        public IHttpActionResult Get(string domain)
+        public IHttpActionResult Get(string key)
         {
-            return Json(new { Id = -1, Url = domain, Paswd = "value1" });
+            return Json(_container.Decrypt(key, pw));
         }
 
-        // POST api/vault 
-        public void Post([FromBody]string value)
+        // POST api/vault/google.com
+        public IHttpActionResult Post(string key, [FromBody]string password)
         {
+            try
+            {
+                _container.Insert(key, password.Secure(), pw);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
-        // PUT api/vault/5 
-        public void Put(int id, [FromBody]string value)
+        // PUT api/vault/google.com
+        public IHttpActionResult Put(string key, [FromBody]string password)
         {
+            try
+            {
+                _container.Update(key, password.Secure(), pw);
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
-        // DELETE api/vault/5 
-        public void Delete(int id)
+        // DELETE api/vault/google.com
+        public IHttpActionResult Delete(string key)
         {
+            try
+            {
+                _container.Delete(key, pw);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }
