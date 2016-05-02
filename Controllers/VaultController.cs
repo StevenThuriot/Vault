@@ -21,14 +21,22 @@ namespace Vault.Controllers
             }
             catch
             {
-                return NotFound();
+                return BadRequest();
             }
         }
         
         // GET api/vault/google.com
         public IHttpActionResult Get(string key)
         {
-            return Json(_container.Decrypt(key, pw));
+            try
+            {
+                var value = _container.Decrypt(key, pw);
+                return Json(value.ToUnsecureString());
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         // POST api/vault/google.com
@@ -55,7 +63,7 @@ namespace Vault.Controllers
             }
             catch
             {
-                return NotFound();
+                return BadRequest();
             }
         }
 
