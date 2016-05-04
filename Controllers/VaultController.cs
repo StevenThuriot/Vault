@@ -6,6 +6,7 @@ using Vault.Core;
 namespace Vault.Controllers
 {
     //TODO: Remove test data
+    [RoutePrefix("api/vault")]
     public class VaultController : ApiController
     {
         //TODO: just for testing things out, replace with injected container and real auth
@@ -13,6 +14,7 @@ namespace Vault.Controllers
         readonly IContainer<SecureString> _container = ContainerFactory.FromFile("vault.enc");
 
         // GET api/vault 
+        [HttpGet, Route("")]
         public IHttpActionResult Get()
         {   try
             {
@@ -24,8 +26,9 @@ namespace Vault.Controllers
                 return BadRequest();
             }
         }
-        
+
         // GET api/vault/google.com
+        [HttpGet, Route("{key}")]
         public IHttpActionResult Get(string key)
         {
             try
@@ -40,6 +43,7 @@ namespace Vault.Controllers
         }
 
         // POST api/vault/google.com
+        [HttpPost, Route("{key}")]
         public IHttpActionResult Post(string key, [FromBody]string password)
         {
             try
@@ -54,6 +58,7 @@ namespace Vault.Controllers
         }
 
         // PUT api/vault/google.com
+        [HttpPut, Route("{key}")]
         public IHttpActionResult Put(string key, [FromBody]string password)
         {
             try
@@ -68,6 +73,7 @@ namespace Vault.Controllers
         }
 
         // DELETE api/vault/google.com
+        [HttpDelete, Route("{key}")]
         public IHttpActionResult Delete(string key)
         {
             try
